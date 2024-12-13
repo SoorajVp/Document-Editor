@@ -7,7 +7,7 @@ import path from "path"
 export const config = {
     api: {
         bodyParser: {
-            sizeLimit: '10mb', // Adjust size limit based on your requirements
+            sizeLimit: '50mb', // Adjust size limit based on your requirements
         },
     },
 };
@@ -24,18 +24,23 @@ export default async function handler(req, res) {
             if (!document) {
                 return res.status(400).json({ error: 'document data is required' });
             }
+            console.log("step 1 => ", fileName)
+
             // Upload the base64 string to Cloudinary
             const uploadResponse = await cloudinary.uploader.upload(document, {
                 upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET, // Predefined preset in Cloudinary
                 resource_type: "auto", 
                 public_id: `${uuidv4() + fileExtension }`,
-                type: 'upload',
+                type: 'upload', 
+                timeout: 120000,
             });
+            console.log("step 2 => ", fileName)
 
             const documentURL = cloudinary.url(uploadResponse.public_id, {
                 resource_type: "auto", // Ensure raw access for files like PDFs
                 // secure: true,
             });
+            console.log("step 3 => ", fileName)
 
             console.log("this is document url => :", documentURL)
             // Return the uploaded document URL

@@ -3,6 +3,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import apiClient from "../lib/axios";
 
 const UploadComp = () => {
     const [file, setFile] = useState(null); // Store selected file
@@ -27,21 +28,21 @@ const UploadComp = () => {
 
         reader.onloadend = async () => {
             try {
-                const response = await axios.post('/api/upload-document', {
+                const response = await apiClient.post('/upload-document', {
                     document: reader.result, // Base64 data
                     fileName: file.name,  // Original file name
                 });
 
                 setUploadedUrl(response.data.documentURL);
             } catch (error) {
-                console.error("An error occurred:", error);
+                console.log("An error occurred:", error);
             }
 
             setLoading(false);
         };
 
         reader.onerror = () => {
-            console.error("Failed to read file.");
+            console.log("Failed to read file.");
             setLoading(false);
         };
     };

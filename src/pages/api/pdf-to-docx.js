@@ -1,6 +1,6 @@
 import ConvertAPI from 'convertapi';
 
-const convertapi = new ConvertAPI('secret_XN1JWYjPJJuG8cGi', { conversionTimeout: 60 });
+const convertapi = new ConvertAPI(process.env.CONVERT_API_SECRET, { conversionTimeout: 60 });
 
 export default async function handler(req, res) {
     try {

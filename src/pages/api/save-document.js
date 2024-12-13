@@ -77,6 +77,8 @@ export default async function handler(req, res) {
         // Serialize the updated XML back to a string
         documentXml = serializer.serializeToString(doc);
 
+        console.log('documentXml ', documentXml )
+
         // Update the ZIP file with the modified document.xml
         zip.file('word/document.xml', documentXml);
         const updatedDoc = await zip.generateAsync({ type: 'nodebuffer' });

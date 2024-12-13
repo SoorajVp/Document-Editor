@@ -40,7 +40,18 @@ const ViewDocument = () => {
             <div className='w-full h-screen bg-gray-200 p-2'>
                 {
                     docx ?
-                        <DocViewer documents={docx} pluginRenderers={DocViewerRenderers} className='h-full border' /> :
+                        <>
+                            <div className="flex justify-end pb-2">
+                                <a
+                                    href={docx[0].uri} // Document URL
+                                    download={docx[0].fileName || true} // File name for download
+                                    className="px-4 py-2 text-sm bg-blue-500 text-white hover:bg-blue-600"
+                                >
+                                    Download Document
+                                </a>
+                            </div>
+                            <DocViewer documents={docx} pluginRenderers={DocViewerRenderers} className='h-full border' />
+                        </> :
                         <div className='flex justify-center items-center h-full' >
                             {/* <button onClick={handleConvert} className='px-4 py-2 bg-blue-600 text-white rounded-md'>Convert to DOCX</button> */}
                             <div className='space-y-2 flex flex-col'>

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import apiClient from "../lib/axios"
 import path from "path";
 import { useRouter, useSearchParams } from "next/navigation";
 import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
@@ -28,7 +29,7 @@ const EditDocument = () => {
                 setTextBlocks(textBlocks || []); // Default to an empty array if undefined
                 console.log("Document loaded successfully!");
             } catch (error) {
-                console.error("Error loading document:", error.message);
+                console.log("Error loading document:", error.message);
             } finally {
                 setLoading(false);
             }
